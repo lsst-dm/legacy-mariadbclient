@@ -1,0 +1,25 @@
+# whitelist
+branches:
+  only:
+      - u/fjammes/DM-4808 
+
+sudo: required
+
+services:
+      - docker
+
+before_install:
+      - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      # docker image from public hub are cached by travis
+      - docker pull qserv/mariadb_build:centos
+      # image below won't be cached
+      - docker build -t qserv/mariadb_build:centos ci/centos
+      # push eventual change to cache them for future
+      - docker push qserv/mariadb_build:centos
+      - docker pull qserv/mariadb_build:debian
+      - docker build -t qserv/mariadb_build:debian ci/debian
+      - docker push qserv/mariadb_build:debian
+
+script:
+    - docker run --rm -v $(pwd):/tmp/mariadb qserv/mariadb_build:centos
+    - docker run --rm -v $(pwd):/tmp/mariadb qserv/mariadb_build:debian
