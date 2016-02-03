@@ -68,7 +68,6 @@ libmysqld/examples/mysql_client_test_embedded
 libmysqld/examples/mysql_embedded
 libmysqld/examples/mysqltest_embedded
 make_dist.cmake
-mariadb-*.*.*.tar.gz
 mariadb-*.*.*/
 mysql-test/lib/My/SafeProcess/my_safe_process
 mysql-test/mtr
