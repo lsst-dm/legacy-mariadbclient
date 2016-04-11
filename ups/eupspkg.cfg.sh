@@ -9,12 +9,6 @@ config()
     # TokuDB requires third-party software jemalloci (see http://www.canonware.com/jemalloc/)
     ARGS+=('-DPLUGIN_TOKUDB=NO')
 
-    # Prevent CMake from finding and linking against libraries distributed in $(dirname
-    # python)/../lib. This is CMake's default behaviour, but can cause us to erroneously link
-    # against libraries distributed by e.g. Anaconda.
-    PYTHONLIBDIR=$(which python | sed -e's|bin/python|lib|')
-    ARGS+=("-DCMAKE_SYSTEM_IGNORE_PATH=${PYTHONLIBDIR}")
-
     case $(uname) in
         Linux*)
             if grep -q -i "CentOS release 5" /etc/redhat-release; then
@@ -29,6 +23,9 @@ config()
             # Disable external SSL on OS X as it is not a standard library
             # and LSST does not need full SSL support.
             ARGS+=('-DWITH_SSL=bundled')
+            # Use bundled zlib to increase portability and avoid problems with
+            # Anaconda's libz.dylib that has an incorrect install_name
+            ARGS+=('-DWITH_ZLIB=bundled')
             ;;
         *)
             # non-fatal
