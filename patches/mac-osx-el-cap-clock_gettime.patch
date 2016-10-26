@@ -1,0 +1,14 @@
+--- ./cmake/os/Darwin.cmake
++++ ./cmake/os/Darwin.cmake
+@@ -14,3 +14,10 @@
+ # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+ # This file includes OSX specific options and quirks, related to system checks
++
++EXEC_PROGRAM(uname ARGS -r OUTPUT_VARIABLE DARWIN_VERSION_OUTPUT)
++STRING(REGEX MATCH "^[0-9]+[0-9]" DARWIN_VERSION ${DARWIN_VERSION_OUTPUT})
++MESSAGE(STATUS "DARWIN_VERSION=${DARWIN_VERSION}")
++IF (DARWIN_VERSION EQUAL 15)
++    set(HAVE_CLOCK_GETTIME 0)
++ENDIF (DARWIN_VERSION EQUAL 15)
+\ No newline at end of file
