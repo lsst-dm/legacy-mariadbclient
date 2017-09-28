@@ -15,6 +15,7 @@ config()
 
     ARGS+=('-DWITH_SSL=bundled')
     ARGS+=('-DWITH_ZLIB=bundled')
+    ARGS+=('-DWITH_PCRE=bundled')
 
     case $(uname) in
         Linux*)
