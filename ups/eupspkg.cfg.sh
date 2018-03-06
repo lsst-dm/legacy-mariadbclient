@@ -16,6 +16,7 @@ config()
     ARGS+=('-DWITH_ZLIB=bundled')
     ARGS+=('-DWITH_PCRE=bundled')
     ARGS+=('-DWITHOUT_SERVER=ON')
+    ARGS+=('-DDISABLE_SHARED=ON')
 
     cmake . "${ARGS[@]}"
 }
