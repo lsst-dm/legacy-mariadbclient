@@ -12,6 +12,7 @@ config()
 
     # TokuDB requires third-party software jemalloci (see http://www.canonware.com/jemalloc/)
     ARGS+=('-DPLUGIN_TOKUDB=NO')
+    ARGS+=('-DENABLE_DTRACE=NO')
 
     # Due to cmake library discovery being overly energetic (searching every
     # lib directory relative to each entry in $PATH) we use the bundled ZLIB and
